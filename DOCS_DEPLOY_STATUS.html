@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://dwh3.github.io/did_imputation/SPEC.html">
+        <link rel="canonical" href="https://dwh3.github.io/did_imputation/DOCS_DEPLOY_STATUS.html">
         <link rel="shortcut icon" href="img/favicon.ico">
-        <title>SPEC — Behavioral Matrix (v0.1) - didimpute</title>
+        <title>Docs Deploy Status — $(git rev-parse --short HEAD) - didimpute</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/fontawesome.min.css" rel="stylesheet">
         <link href="css/brands.min.css" rel="stylesheet">
@@ -49,7 +49,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a href="https://github.com/dwh3/did_imputation/edit/main/docs/SPEC.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                                <a href="https://github.com/dwh3/did_imputation/edit/main/docs/DOCS_DEPLOY_STATUS.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -69,7 +69,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#spec-behavioral-matrix-v01" class="nav-link">SPEC — Behavioral Matrix (v0.1)</a>
+            <li class="nav-item" data-bs-level="1"><a href="#docs-deploy-status-git-rev-parse-short-head" class="nav-link">Docs Deploy Status — $(git rev-parse --short HEAD)</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -78,26 +78,19 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="spec-behavioral-matrix-v01">SPEC — Behavioral Matrix (v0.1)</h1>
-<p><strong>Input columns</strong>
-- outcome: y; unit: id; time: t (integer-castable); adoption time: Ei (NaN =&gt; never-treated)
-- optional: controls X[], weight w&gt;=0, cluster id (defaults to id)</p>
-<p><strong>Estimator steps</strong>
-1) Untreated sample = never-treated OR not-yet-treated (t &lt; Ei).
-2) Two-way FE on untreated sample: y ~ controls + α_i + λ_t (WLS if weights).
-3) Predict counterfactual for all cells with observed (i,t) labels from untreated sample; compute:
-   - treated-post cells: τ_it = y_it - ŷ^0_it
-   - eventual-treated pre-periods: placebo for pretrend test
-4) Aggregate τ_it to event-time k = t - Ei with selected weights.
-5) Cluster-robust SEs by id for each k; joint pretrend test over k&lt;0.</p>
-<p><strong>Aggregation weights (per event-time k)</strong>
-- nobs: equal weight per cell (simple mean across treated cells at k).
-- equal: equal weight per cohort (cohort = Ei); average cohort means at k equally.
-- cohort_share: weight cohort means by cohort share at k (n_{g,k}/N_k).</p>
-<p><strong>CLI</strong>
-- didimpute --csv ... --y Y --id i --time t --Ei Ei [--cluster id --controls X1,X2 --weight w --horizons -5:10 --pretrends 5 --scheme equal|nobs|cohort_share]</p>
-<p><strong>Limitations v0.1</strong>
-- Single adoption event; no wild bootstrap; one-way clustering; no missing-data strategies beyond listwise.</p></div>
+<h1 id="docs-deploy-status-git-rev-parse-short-head">Docs Deploy Status — $(git rev-parse --short HEAD)</h1>
+<ul>
+<li>Updated <code>mkdocs.yml</code> with:</li>
+<li><code>site_url: https://dwh3.github.io/did_imputation/</code></li>
+<li><code>repo_url: https://github.com/dwh3/did_imputation</code></li>
+<li><code>use_directory_urls: false</code></li>
+<li>Navigation pointing to <code>index.md</code> and <code>PARITY.md</code>.</li>
+<li>Documentation files present in <code>docs/</code>: <code>index.md</code>, <code>PARITY.md</code>, <code>SPEC.md</code>, <code>RELEASE_STATUS.md</code>.</li>
+<li>Build command: <code>.venv/Scripts/python.exe -m mkdocs build --strict</code> (status: ✅).</li>
+<li>Deploy command: <code>.venv/Scripts/python.exe -m mkdocs gh-deploy --clean --message "docs: fix project-site base path and links"</code> (status: ✅).</li>
+<li>Published site: <a href="https://dwh3.github.io/did_imputation/">https://dwh3.github.io/did_imputation/</a>.</li>
+</ul>
+<p>📌 Maintainer reminder: In GitHub → <strong>Settings → Pages</strong>, ensure <strong>Source = gh-pages (root)</strong> and allow a few minutes for CDN cache invalidation before testing navigation.</p></div>
             </div>
         </div>
 
