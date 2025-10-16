@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Parity Validation - didimpute</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">didimpute</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../SPEC/" class="nav-link">Overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Parity Validation</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../SPEC/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#parity-summary-python-stata" class="nav-link">Parity Summary (Python ↔ Stata)</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#motivation" class="nav-link">Motivation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-parity-means-here" class="nav-link">What “Parity” Means Here</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#headline-results-latest-manual-run" class="nav-link">Headline Results (latest manual run)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#interpreting-the-report" class="nav-link">Interpreting the Report</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#regression-guardrails" class="nav-link">Regression Guardrails</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="parity-summary-python-stata">Parity Summary (Python ↔ Stata)</h1>
+<h2 id="motivation">Motivation</h2>
+<p>Imputation-based DID estimators provide unbiased event-study trajectories under staggered adoption when counterfactual outcomes are constructed from untreated cohorts. didimpute reproduces the workflow economists know from Stata while exposing a Pythonic API suitable for reproducible pipelines. To instill confidence that the port preserves the original estimator’s behavior, we validate against the canonical Stata implementation across seeded data-generating processes (DGPs).</p>
+<h2 id="what-parity-means-here">What “Parity” Means Here</h2>
+<ul>
+<li><strong>Event-time estimates (<code>τ_k</code>)</strong>: we align each treated event time <code>k</code> between Stata and Python outputs and compare point estimates.</li>
+<li><strong>Standard errors</strong>: where Stata emits cluster-robust standard errors, we line them up and compute absolute deviations.</li>
+<li><strong>Pretrend diagnostics</strong>: placebo effects for <code>k &lt; 0</code> are tabulated so that the joint Wald tests agree in rejection behavior.</li>
+<li><strong>Coverage heuristics</strong>: we report share of estimates within user-defined tolerances (default ≤0.05 absolute difference).</li>
+</ul>
+<p>All comparisons run on deterministic CSV fixtures generated under seeds 100–149; the harness records raw tables plus summary statistics to <code>parity/out/</code>.</p>
+<h2 id="headline-results-latest-manual-run">Headline Results (latest manual run)</h2>
+<ul>
+<li><code>dgpB_const_te</code> (scheme=<code>nobs</code>, k=0..3): Share(|Δ estimate| ≤ 0.05) = 1.00; Max |Δ| = 0.0000</li>
+<li><code>dgpB_const_te</code> (scheme=<code>equal</code>): 1.00</li>
+<li><code>dgpB_const_te</code> (scheme=<code>cohort_share</code>): 1.00</li>
+<li><code>dgpC_pretrend</code> (scheme=<code>nobs</code>, k=-3..0): 1.00</li>
+<li><code>dgpA_no_treat</code>: no overlapping treated <code>k</code> rows (expected)</li>
+</ul>
+<p>The full parity report lives at <code>parity/out/PARITY_REPORT.md</code>, alongside raw CSV tables for transparency.</p>
+<h2 id="interpreting-the-report">Interpreting the Report</h2>
+<ol>
+<li><strong>Share(|Δ estimate| ≤ ε)</strong> close to 1.0 indicates the estimator matches Stata within tolerance <code>ε</code>; investigate outliers when the share drops.</li>
+<li><strong>Max |Δ|</strong> highlights worst-case deviations. Non-zero values typically signal insufficient support or failing first-stage assumptions.</li>
+<li><strong>Pretrend rows</strong>: when Stata lacks overlapping negative event-times, the Python harness marks the test as “not run” to avoid false alarms.</li>
+<li><strong>Missing rows</strong>: if Stata omits certain <code>k</code> (e.g., no treated observations), expect <code>nan</code>/missing entries; didimpute mirrors that behavior by design.</li>
+</ol>
+<p>When extending the estimator or adding weight schemes, update the parity harness to cover new scenarios and re-freeze the golden regression outputs in <code>tests/golden/</code>.</p>
+<h2 id="regression-guardrails">Regression Guardrails</h2>
+<ul>
+<li>Python goldens for canonical scenarios live in <code>tests/golden/</code>.</li>
+<li>CI enforces parity by comparing fresh summaries to these goldens with tight tolerances (1e-6 absolute on estimates/SEs).</li>
+<li>Stata is <em>optional</em>: the parity harness can be run manually when Stata is available; CI depends only on the goldens.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
