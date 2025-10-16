@@ -1,0 +1,7 @@
+site_name: didimpute
+site_description: Documentation for the didimpute Python package
+nav:
+  - Overview: SPEC.md
+  - Parity Validation: PARITY.md
+theme:
+  name: mkdocs

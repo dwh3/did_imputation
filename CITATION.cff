@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+title: didimpute (Python)
+message: If you use didimpute in your research, please cite it using the metadata below.
+type: software
+abstract: >
+  didimpute is a Python implementation of the imputation-based difference-in-differences
+  estimator for staggered adoption panels, designed for reproducible, audit-ready workflows.
+version: 0.1.0
+date-released: 2025-10-14
+repository-code: https://github.com/did-imputation-port/didimpute
+license: MIT
+authors:
+  - name: didimpute contributors
+    affiliation: Open-source community
+contact:
+  - name: didimpute maintainers
+    email: info@example.org
+keywords:
+  - difference-in-differences
+  - causal inference
+  - staggered adoption
+  - econometrics
+references:
+  - type: article
+    title: "TODO: Original imputation-based DID paper title"
+    authors:
+      - name: "TODO: Author list"
+    year: 20XX
+    doi: 10.1234/todo-doi
+    note: "Replace with the canonical citation for the imputation-based DID method."
+  - type: software
+    title: "TODO: did_imputation Stata package"
+    authors:
+      - name: "TODO: Stata package authors"
+    year: 20XX
+    url: https://github.com/TODO/did_imputation
+    note: "Upstream Stata implementation referenced for behavioral parity."

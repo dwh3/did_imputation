@@ -1,0 +1,6 @@
+didimpute (Python) is an original implementation of the imputation-based difference-in-differences estimator.
+
+This repository retains the upstream Stata reference materials under `upstream/git/` for comparison and audit only.
+Those Stata files remain under their original licenses and are excluded from the published wheel and source
+distribution artifacts for didimpute. Users who need the upstream Stata resources should consult the upstream
+project directly to obtain them under the applicable terms.

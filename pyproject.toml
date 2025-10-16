@@ -1,0 +1,81 @@
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "didimpute"
+version = "0.1.0"
+description = "Imputation-based DID for staggered adoption (Python)."
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name="Open-Source Contributors"}]
+requires-python = ">=3.9"
+dependencies = [
+  "numpy>=1.23",
+  "pandas>=1.5",
+  "scipy>=1.10",
+  "statsmodels>=0.14",
+  "click>=8.1",
+]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+]
+
+[project.urls]
+Documentation = "https://dwh3.github.io/did_imputation/"
+Source = "https://github.com/dwh3/did_imputation"
+Tracker = "https://github.com/dwh3/did_imputation/issues"
+DOI = "https://doi.org/10.0000/placeholder"
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.7"]
+absorbing = ["linearmodels>=5.4"]
+speed = ["numba>=0.57"]
+dev = [
+  "pytest>=7.4",
+  "pytest-cov>=4.1",
+  "ruff>=0.4",
+  "mypy>=1.9",
+  "pandas-stubs",
+  "matplotlib>=3.7",
+  "linearmodels>=5.4",
+  "numba>=0.57",
+]
+
+[project.scripts]
+didimpute = "didimpute.cli:main"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]  # include import-sorting
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+ignore_missing_imports = true
+warn_unused_ignores = true
+
+[tool.hatch.build]
+exclude = [
+  "parity/out/**",
+  "dist/**",
+  "build/**",
+  "*.log",
+  "*.tmp",
+  "*.bak",
+  ".pytest_cache/**",
+  ".mypy_cache/**",
+  ".venv/**",
+  "upstream/git/**",
+  "tmp_old.txt",
+]
