@@ -6,15 +6,19 @@ abstract: >
   didimpute is a Python implementation of the imputation-based difference-in-differences
   estimator for staggered adoption panels, designed for reproducible, audit-ready workflows.
 version: 0.1.0
-date-released: 2025-10-14
+date-released: 2025-10-15
 repository-code: https://github.com/did-imputation-port/didimpute
 license: MIT
 authors:
+  - family-names: Hummel
+    given-names: David W.
+    name-suffix: III
+    affiliation: Independent Researcher
   - name: didimpute contributors
     affiliation: Open-source community
 contact:
-  - name: didimpute maintainers
-    email: info@example.org
+  - name: David W. Hummel III
+    email: maintainers@didimpute.org
 keywords:
   - difference-in-differences
   - causal inference
@@ -22,16 +26,24 @@ keywords:
   - econometrics
 references:
   - type: article
-    title: "TODO: Original imputation-based DID paper title"
+    title: "Revisiting Event Study Designs: Robust and Efficient Estimation with Imputed Counterfactuals"
     authors:
-      - name: "TODO: Author list"
-    year: 20XX
-    doi: 10.1234/todo-doi
-    note: "Replace with the canonical citation for the imputation-based DID method."
+      - family-names: Borusyak
+        given-names: Kirill
+      - family-names: Jaravel
+        given-names: Xavier
+      - family-names: Spiess
+        given-names: Jann
+    year: 2024
+    doi: TODO
+    note: "Foundational derivation of the imputation-based DID estimator."
   - type: software
-    title: "TODO: did_imputation Stata package"
+    title: "did_imputation Stata package"
+    version: 0.1.0
     authors:
-      - name: "TODO: Stata package authors"
-    year: 20XX
-    url: https://github.com/TODO/did_imputation
-    note: "Upstream Stata implementation referenced for behavioral parity."
+      - family-names: Hummel
+        given-names: David W.
+        name-suffix: III
+    year: 2024
+    url: https://github.com/dwh3/did_imputation
+    note: "Original Stata implementation used for behavioral parity checks."

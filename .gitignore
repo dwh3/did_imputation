@@ -18,3 +18,7 @@ parity/out/
 Thumbs.db
 *.coverage
 site/
+.mypy_cache/
+.ruff_cache/
+artifacts/
+.local_signals/

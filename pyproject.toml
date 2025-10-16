@@ -29,10 +29,10 @@ classifiers = [
 ]
 
 [project.urls]
+Homepage = "https://dwh3.github.io/did_imputation/"
 Documentation = "https://dwh3.github.io/did_imputation/"
 Source = "https://github.com/dwh3/did_imputation"
 Tracker = "https://github.com/dwh3/did_imputation/issues"
-DOI = "https://doi.org/10.0000/placeholder"
 
 [project.optional-dependencies]
 plot = ["matplotlib>=3.7"]

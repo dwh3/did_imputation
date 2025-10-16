@@ -1,7 +1,18 @@
 site_name: didimpute
-site_description: Documentation for the didimpute Python package
-nav:
-  - Overview: SPEC.md
-  - Parity Validation: PARITY.md
+site_url: "https://dwh3.github.io/did_imputation/"
+repo_url: "https://github.com/dwh3/did_imputation"
+use_directory_urls: false
+
 theme:
-  name: mkdocs
+  name: material
+
+nav:
+  - Overview: index.md
+  - External Review Update: EXTERNAL_REVIEW_UPDATE.md
+  - Parity Validation: PARITY.md
+  - Intelligence:
+      - Intelligence Report: INTELLIGENCE_REPORT.md
+      - Intelligence Summary: INTELLIGENCE_SUMMARY.md
+      - Docs Deploy Status: DOCS_DEPLOY_STATUS.md
+      - Release Status: RELEASE_STATUS.md
+      - Specification: SPEC.md

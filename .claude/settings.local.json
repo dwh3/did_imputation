@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo:*)",
+      "Bash(if [ -f .local_signals/REVIEW_READY.flag ])",
+      "Bash(then)",
+      "Bash(else)",
+      "Bash(fi)",
+      "Bash(bash -c '\nif [ -f .local_signals/REVIEW_READY.flag ]; then\n  echo \"\"✓✓✓ SIGNAL DETECTED! ✓✓✓\"\"\n  cat .local_signals/REVIEW_READY.flag\n  exit 0\nelse\n  echo \"\"[$(date +%H:%M:%S)] Still waiting... checking again in 60s\"\"\n  exit 1\nfi\n')",
+      "Bash(for i in {1..20})",
+      "Bash(do)",
+      "Bash(exit 0)",
+      "Bash(TIMESTAMP=\"20251015_230430\")",
+      "Bash(ROOT=\"D:/dev/did-imputation-port\")",
+      "Bash(OUT=\"$ROOT/artifacts/review_run/$TIMESTAMP\")",
+      "Bash(if grep -q \"mypy_cache\\|ruff_cache\" .gitignore)",
+      "Bash(then echo \"  ✓ Cache directories excluded\")",
+      "Bash(else echo \"  ✗ Cache directories NOT in .gitignore\")",
+      "Bash(if git tag)",
+      "Bash(then echo \"  ✓ v0.1.0 tag exists\")",
+      "Bash(else echo \"  ℹ v0.1.0 tag not created (optional)\")",
+      "Bash(if grep -q \"Install\\|install\" README.md)",
+      "Bash(then echo \"  ✓ Installation section present\")",
+      "Bash(if grep -q \"import\\|from didimpute\" README.md)",
+      "Bash(then echo \"  ✓ Import example present\")",
+      "Bash(if [ -f \"dist/didimpute-0.1.0-py3-none-any.whl\" ])",
+      "Bash(then echo \"  ✓ Wheel exists: dist/didimpute-0.1.0-py3-none-any.whl\")",
+      "Bash(else echo \"  ⚠️ Wheel not found, checking dist/...\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
